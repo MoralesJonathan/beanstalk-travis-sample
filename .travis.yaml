@@ -1,0 +1,12 @@
+language: node_js
+install: npm install
+branches:
+  only: master
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: "AKIAJLWTH2ORUCPQFAXA"
+  secret_access_key: "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"
+  region: "us-east-1"  
+  app: "tasp"
+  env: "tasp-env"
+  bucket_name: "elasticbeanstalk-us-east-1-422249620134"
