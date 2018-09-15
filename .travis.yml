@@ -11,9 +11,7 @@ branches:
   only: master
 deploy:
   provider: elasticbeanstalk
-  access_key_id: AKIAI7HXWPPPUFUQK2IQ
-  secret_access_key:
-    secure: "OsUBZtbTCoWk64lwsNcEhSUxYyCi5EYKSJ4IyI45nzKkagzQd00uCpmgM+FY/12cZLVKOC+uC19YFATGocrSeNZZH5tj0nQxG6nyeWTbZK6gs7ne6u8GQQOLqqhJ0keP7fnMZrYAQmB+wOyvR9lgCTZZWNVtcW0zNDMwWUu13n1TYCMqHMR3DbQwSfOgNrAbFzjsFfg394J2ObQuLZ+xvIaKuDDj3zXBtJj5bAJxXTwfz01N4T2qkwjONb97iX/55lEHhp/vqFiKpi0h9sREF5rIGpXw4113N5mUhvoWgx0bIAdW/ruY+xrj5D/IZGUquy7rXYzoRYjWEQbLOi4Y6qtlR64owuAbRZrA0UYrW5WdJrtMf2yx6S6mZX3a8I226Zk0vK/CZu5gxQMXJosCsQvvq9iMR9DEES8f9GYTAIutsddsLQ3w03vMFKfYKMUqzXlRwjYNhVUsHSIJ9QSI7EQ0kSj2pEKUwLcEJazROv1uaSVNiWbhsWIisdug0YuWBbUpZkkhJYMvkL/VQPBw9i1N9FJg/wYQYN65XPXQ1TUbYQTmpuskv/PUWyO56jM5DCsbyVd6GtbypKP+JEoaBgzFWGmWZFdm9Hg0S77IYHlvtZjPgvA4MBOpXxIPQUUO1aa4Vm17rax5/fbleUPuq0zmr/I3jQSC+vGue6+swyE="
+  access_key_id: AKIAJ6GIGQ2RH7X45S4Q
   region: us-east-1
   app: tasp
   env: Tasp-env
