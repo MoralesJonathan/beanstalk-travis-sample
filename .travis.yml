@@ -1,9 +1,9 @@
 language: node_js
-node_js: 
-  - '8'
+node_js:
+- '8'
 cache:
   directories:
-      - node_modules
+  - node_modules
 env:
 - TRAVIS_NODE_VERSION="8.11"
 install: npm install
@@ -11,10 +11,11 @@ branches:
   only: master
 deploy:
   provider: elasticbeanstalk
-  access_key_id: "AKIAJA6Z4IWRAGTROYJQ"
+  access_key_id: AKIAI7HXWPPPUFUQK2IQ
   secret_access_key:
-    "LJCHIucEJYooY4peXoldXgBx+Dq32UrmGb5xF2uhyf9RiaZBfIc80W6Ys8sJTiV+HLvye8uIxEDYXmsbz2SfOXtONUEysc2hn/8chEWHQnsZQwa5Q1AXbwm3H/oJWEPpw8d9AcUskLrvgmZlCkk85ePAxjLXRD6Zv47rZii0kOl1n94o2J17OxNtgSEefSLCpQ3ZnMSiI8WysFPbB28QWVt971pdHEjwDIa4F76jgBvW+j5qV9nPiuWKM3tlYAQqE/b1saQ+NFbRCNVYefkBxm+geSSYrvO+AHqY/mrLg2FQ65+L5KayScwtppsxovJMzW2qL29w66Knkhu6IMGcVRyMb7vfy25MdxGPhFilRiZR0Xx/lAV7VKX7ziXKWXxQUezgm5fSMBit8GD0GoIXbbetdeakao8bCMmTTTBFnKV+dceZ6U5jm6YKcXgSTz4t3aKyIMTIT3bXnx/hiTLjAvyF3bBebXVPb4pHCIRRwhpzdV9dUEL65uQA6H2XVILuJmCGvmN2yQgZmapHHFkENUVjuIanOEUo9GWH1oeIbkoR1R/Um3qJqX8jZP/XwYIfIVmNO0CjzQ8G7UNddjO98O6fbQeNgTlMt/t0tVeTlVwh3gFzwncD99E6WPJIdkw66fEWdw7u1Im9vssEWDoL1GFhoLBzZ3StxibFC63e5hI="
-  region: "us-east-1"  
-  app: "tasp"
-  env: "tasp-env"
-  bucket_name: "elasticbeanstalk-us-east-1-422249620134"
+    secure: OsUBZtbTCoWk64lwsNcEhSUxYyCi5EYKSJ4IyI45nzKkagzQd00uCpmgM+FY/12cZLVKOC+uC19YFATGocrSeNZZH5tj0nQxG6nyeWTbZK6gs7ne6u8GQQOLqqhJ0keP7fnMZrYAQmB+wOyvR9lgCTZZWNVtcW0zNDMwWUu13n1TYCMqHMR3DbQwSfOgNrAbFzjsFfg394J2ObQuLZ+xvIaKuDDj3zXBtJj5bAJxXTwfz01N4T2qkwjONb97iX/55lEHhp/vqFiKpi0h9sREF5rIGpXw4113N5mUhvoWgx0bIAdW/ruY+xrj5D/IZGUquy7rXYzoRYjWEQbLOi4Y6qtlR64owuAbRZrA0UYrW5WdJrtMf2yx6S6mZX3a8I226Zk0vK/CZu5gxQMXJosCsQvvq9iMR9DEES8f9GYTAIutsddsLQ3w03vMFKfYKMUqzXlRwjYNhVUsHSIJ9QSI7EQ0kSj2pEKUwLcEJazROv1uaSVNiWbhsWIisdug0YuWBbUpZkkhJYMvkL/VQPBw9i1N9FJg/wYQYN65XPXQ1TUbYQTmpuskv/PUWyO56jM5DCsbyVd6GtbypKP+JEoaBgzFWGmWZFdm9Hg0S77IYHlvtZjPgvA4MBOpXxIPQUUO1aa4Vm17rax5/fbleUPuq0zmr/I3jQSC+vGue6+swyE=
+  region: us-east-1
+  app: tasp
+  env: Tasp-env
+  on:
+    repo: jonmorazav/beanstalk-travis-sample
