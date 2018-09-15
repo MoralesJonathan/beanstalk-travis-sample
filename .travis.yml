@@ -1,4 +1,11 @@
 language: node_js
+node_js: 
+  - '8'
+cache:
+  directories:
+      - node_modules
+env:
+- TRAVIS_NODE_VERSION="8.11"
 install: npm install
 branches:
   only: master
