@@ -12,6 +12,7 @@ branches:
 deploy:
   provider: elasticbeanstalk
   access_key_id: AKIAJ6GIGQ2RH7X45S4Q
+  secret_access_key: $BEANSTALK_PRIVATE_KEY
   region: us-east-1
   app: tasp
   env: Tasp-env
