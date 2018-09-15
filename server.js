@@ -6,36 +6,21 @@ const express = require('express')
   logger = require('morgan')
   bodyParser = require('body-parser')
   fs = require('fs')
-  session = require('express-session')
   mongoClient = require('mongodb').MongoClient
-  MongoStore = require('connect-mongo')(express)
   ObjectID = require('mongodb').ObjectID
-  keys = require("keys.json");
+  keys = require("./keys.json");
+  mongoDbUrl = `mongodb://${keys.mongoUsername}:${keys.mongoPassword}@ds123790.mlab.com:23790/shellhacks`;
 
 server
-  .set('view engine', 'pug')
   .use(express.static('public'))
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({
     extended: true
   }))
-  .use(express.cookieParser())
   .use(logger('common'))
-  .use(session({
-    secret: keys.session,
-    resave: false,
-    rolling: true,
-    cookie: { maxAge: 900000 },
-    store: new MongoStore({
-      url: `mongodb://${keys.mongoUsername}:${keys.mongoPassword}@ds123790.mlab.com:23790/shellhacks`
-    }),
-    saveUninitialized: false
-  }))
-
   .get('/', function(req, res) {
-    res.render('index');
+    res.status(200).send('hi');
   })
-
   .listen(port, () => {
     console.log(`Server is running on port ${port} and is running with a ${environment} environment.`);
   });
