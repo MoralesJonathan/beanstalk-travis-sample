@@ -1,4 +1,5 @@
 const express = require('express')
+  dotenv = equire('dotenv').load()
   server = express()
   port = process.env.PORT || 8080
   environment = server.get('env')
@@ -8,8 +9,7 @@ const express = require('express')
   fs = require('fs')
   mongoClient = require('mongodb').MongoClient
   ObjectID = require('mongodb').ObjectID
-  keys = require("./keys.json");
-  mongoDbUrl = `mongodb://${keys.mongoUsername}:${keys.mongoPassword}@ds123790.mlab.com:23790/shellhacks`;
+  mongoDbUrl = `mongodb://${process.env.MONGOUSERNAME}:${process.env.MONGOPASSWORD}@ds123790.mlab.com:23790/shellhacks`;
 
 server
   .use(express.static('public'))
