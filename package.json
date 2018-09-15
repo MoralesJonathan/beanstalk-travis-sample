@@ -1,9 +1,18 @@
 {
-  "name": "Elastic-Beanstalk-Sample-App",
-  "version": "0.0.1",
-  "private": true,
-  "dependencies": {},
-  "scripts": {
-    "start": "node app.js"
+  "name": "Node Boilerplate",
+  "version": "0.0.0",
+  "description": "Boilerplating node server.",
+  "main": "server.js",
+  "repository": "",
+  "author": "Jonathan Morales <jonmorazav@yahoo.com>",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "connect-mongo": "^1.3.2",
+    "express": "~3.2.4",
+    "express-session": "^1.15.6",
+    "mongodb": "^2.2.31",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.11.0",
+    "pug": "^2.0.0-beta11"
   }
 }
