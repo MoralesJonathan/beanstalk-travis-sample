@@ -17,5 +17,6 @@ deploy:
   region: us-east-1
   app: tasp
   env: Tasp-env
+  bucket_name: "elasticbeanstalk-us-east-1-422249620134"
   on:
     repo: jonmorazav/beanstalk-travis-sample
