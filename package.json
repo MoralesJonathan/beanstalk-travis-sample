@@ -1,7 +1,7 @@
 {
-  "name": "Node Boilerplate",
-  "version": "0.0.0",
-  "description": "Boilerplating node server.",
+  "name": "shellhacks",
+  "version": "1.0.0",
+  "description": "Boilerplated shellhacks app.",
   "main": "server.js",
   "repository": "",
   "author": "Jonathan Morales <jonmorazav@yahoo.com>",
@@ -11,8 +11,9 @@
     "express": "~3.2.4",
     "express-session": "^1.15.6",
     "mongodb": "^2.2.31",
-    "morgan": "^1.9.0",
-    "nodemon": "^1.11.0",
-    "pug": "^2.0.0-beta11"
+    "morgan": "^1.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
