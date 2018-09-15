@@ -1,5 +1,5 @@
 const express = require('express')
-  dotenv = equire('dotenv').load()
+  dotenv = require('dotenv').load()
   server = express()
   port = process.env.PORT || 8080
   environment = server.get('env')
