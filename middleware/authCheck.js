@@ -7,7 +7,6 @@ module.exports = (req, res, next) => {
     }
     const token = req.headers.authorization.split(' ')[1];
     return jwt.verify(token, process.env.SECRETORPRIVATEKEY, (err, decoded) => {
-        console.log('in this bitch')
         // the 401 code is for unauthorized status
         if (err) {
             console.log(err);

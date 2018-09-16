@@ -5,7 +5,7 @@ const cognitiveService = require('../../middleware/cognitiveService');
 const fillers = ['so', 'and', 'like', 'actually', 'you know', 'totally', 'i mean', 'just', 'literaly', 'so basically', 'anyway'];
 const mongoClient = require('mongodb').MongoClient;
 const mongoDbUrl = `mongodb://${process.env.MONGOUSERNAME}:${process.env.MONGOPASSWORD}@ds123790.mlab.com:23790/shellhacks`;
-router.get('/test',(req, res) => {
+router.get('/test', (req, res) => {
   res.json('the user endpoint works')
 })
 
@@ -13,7 +13,7 @@ router.get('/list/:collection', function (req, res) {
   mongoClient.connect(mongoDbUrl, function (error, db) {
     if (!error) {
       console.log("Connected successfully to MongoDB server");
-      db.collection(req.params.collection).find({}).toArray(function(err,data){
+      db.collection(req.params.collection).find({}).toArray(function (err, data) {
         console.log(data)
         res.send(data)
       })
@@ -25,21 +25,26 @@ router.get('/list/:collection', function (req, res) {
 })
 
 router.get('/:collection/:timestamp', function (req, res) {
-    mongoClient.connect(mongoDbUrl, function (error, db) {
-      if (!error) {
-        console.log("Connected successfully to MongoDB server");
-        db.collection(req.params.collection).findOne({
-          'startTimestamp': parseInt(req.params.timestamp)
-        }, function (err, speech) {
-          if (err) res.send(false)
-          speechString = speech.text.length > 1 ? speech.text.join(" ") : speech.text[0];
-          // console.log(cognitiveService(speechString));
-          let countMostUsedWord = new Promise(function (resolve, reject) {
-            try {
-              arr = speechString.split(" ")
-              var obj = {}, mostFreq = 0, which = [];
+  mongoClient.connect(mongoDbUrl, function (error, db) {
+    if (!error) {
+      console.log("Connected successfully to MongoDB server");
+      db.collection(req.params.collection).findOne({
+        'startTimestamp': parseInt(req.params.timestamp)
+      }, function (err, speech) {
+        if (err) res.send(false)
+        speechString = speech.text.length > 1 ? speech.text.join(" ") : speech.text[0];
+        let sentimental = new Promise(function (resolve, reject) {
+          cognitiveService(speechString, function (data) {
+            resolve(data);
+          })
+        })
+        let countMostUsedWord = new Promise(function (resolve, reject) {
+          try {
+            arr = speechString.split(" ")
+            var obj = {}, mostFreq = 0, which = [];
 
-              arr.forEach(ea => {
+            arr.forEach(ea => {
+              if (ea != '') {
                 if (!obj[ea]) {
                   obj[ea] = 1;
                 } else {
@@ -51,64 +56,66 @@ router.get('/:collection/:timestamp', function (req, res) {
                 } else if (obj[ea] === mostFreq) {
                   which.push(ea);
                 }
-              });
-
-              if (which.length > 1) {
-                which = `${which.join(` and `)}`
-              } else {
-                which = `"${which}"`
               }
-
-              resolve(which)
-            } catch (e) {
-              reject('')
-            }
-          });
-
-          let countFillers = new Promise(function (resolve, reject) {
-            let fillerStats = {};
-            try {
-              fillers.forEach(function (filler) {
-                fillerStats[filler] = (speechString.match(new RegExp(filler, "gi")) || []).length;
-              });
-              resolve(fillerStats)
-            } catch (e) {
-              reject({})
-            }
-          });
-
-          let getDuration = new Promise(function (resolve, reject) {
-            speech.startTimestamp && speech.endTimestamp ? resolve(Math.floor((speech.endTimestamp - speech.startTimestamp) / 1000)) : reject(null)
-          });
-
-          Promise.all([countMostUsedWord, countFillers, getDuration]).then(function (values) {
-            res.send({
-              mostUsedWord: values[0],
-              fillersCount: values[1],
-              speechDuration: values[2]
             });
-            db.close();
-          });
-        });
-      }
-      else {
-        console.dir(error);
-        res.send(error);
-      }
-    })
 
-  });
+            if (which.length > 1) {
+              which = `${which.join(` + `)}`
+            } else {
+              which = `"${which}"`
+            }
+
+            resolve(which)
+          } catch (e) {
+            reject('')
+          }
+        });
+
+        let countFillers = new Promise(function (resolve, reject) {
+          let fillerStats = {};
+          try {
+            fillers.forEach(function (filler) {
+              fillerStats[filler] = (speechString.match(new RegExp(filler, "gi")) || []).length;
+            });
+            resolve(fillerStats)
+          } catch (e) {
+            reject({})
+          }
+        });
+
+        let getDuration = new Promise(function (resolve, reject) {
+          speech.startTimestamp && speech.endTimestamp ? resolve(Math.floor((speech.endTimestamp - speech.startTimestamp) / 1000)) : reject(null)
+        });
+
+        Promise.all([countMostUsedWord, countFillers, getDuration, sentimental]).then(function (values) {
+          res.send({
+            mostUsedWord: values[0],
+            fillersCount: values[1],
+            speechDuration: values[2],
+            sentimentalScore: values[3]
+          });
+          db.close();
+        });
+      });
+    }
+    else {
+      console.dir(error);
+      res.send(error);
+    }
+  })
+
+});
 
 router.post('/', function (req, res) {
   mongoClient.connect(mongoDbUrl, function (error, db) {
     if (!error) {
       console.log("Connected successfully to MongoDB server");
       db.collection(req.body.collection).insertOne({
-        "startTimestamp" : req.body.startTime,
+        "startTimestamp": req.body.startTime,
         "endTimestamp": req.body.endTime,
-        "text":req.body.text
-      }, function(err,success){
-        if(!err){
+        "text": req.body.text
+      }, function (err, success) {
+        if (!err) {
           res.send(200);
         } else {
           console.log(err)
