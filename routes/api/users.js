@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const gravatar = require('gravatar');
 const jwt = require('jsonwebtoken');
-// Require the user 
+// Require the user
 const User = require('../../models/User');
 // Require the secret sauce
 
@@ -23,17 +23,17 @@ router.get('/test', (req, res) => {
 // @acess Public
 // @returns 409 conflict the request could not be completed due to a conflict with the current state of the resource
 // @returns 201 for a new user sucesfully created
-// @returns 500 some db save error 
+// @returns 500 some db save error
 // @returns 400 for invalid input on req.body
 
 router.post('/register', (req, res) => {
     console.log(req.body);
-    // Check validation on request body 
+    // Check validation on request body
     const { errors, isValid } = validateRegisterInput(req.body);
     if (!isValid) {
         return res.status(400).json(errors);
     }
-    // deconstruct values from body 
+    // deconstruct values from body
     const { email, name, password } = req.body
     User.findOne({ email: email })
         .then(user => {
@@ -43,7 +43,7 @@ router.post('/register', (req, res) => {
             } else {
                 const avatar = gravatar.url(email, {
                     s: '200', //the size
-                    r: 'pg', //rating 
+                    r: 'pg', //rating
                     d: 'mm' //default
                 });
                 //es6 short hand for name:name, email:email etc.
@@ -57,7 +57,7 @@ router.post('/register', (req, res) => {
                     .then(user => res.status(201).json(user))
                     .catch(err => {
                         console.log(err)
-                        errors.db = 'an error has occured in saving in the db' 
+                        errors.db = 'an error has occured in saving in the db'
                         res.status('500').json(errors)
                     });
             }
@@ -67,13 +67,14 @@ router.post('/register', (req, res) => {
 // @route post api/users/login
 // @desc logins a guest
 // @acess Public
-// @returns 404 when a user is not found 
-// @returns 400 when a password is incorrect 
+// @returns 404 when a user is not found
+// @returns 400 when a password is incorrect
 // @returns 200 when a user is sucessfully logged in with a bearer token
 // @returns 500 incase of any errors
 
 router.post('/login', (req, res) => {
-    // Check validation on request body 
+    // Check validation on request body
+    console.log(req.body); 
     const { errors, isValid } = validateLoginInput(req.body);
     if (!isValid) {
         return res.status(400).json(errors);
@@ -82,7 +83,7 @@ router.post('/login', (req, res) => {
     //short hand for email:email
     User.findOne({ email })
         .then(user => {
-            //check for user 
+            //check for user
             if (!user) {
                 errors.user= 'User not found';
                 return res.status(404).json(errors);
