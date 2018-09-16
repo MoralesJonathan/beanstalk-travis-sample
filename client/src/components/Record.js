@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import CardContent from '@material-ui/core/CardContent';
 import axios from 'axios';
+import LazyLoad from 'react-lazyload';
 
 const styles = {
     section: {
@@ -102,7 +103,9 @@ class Record extends Component {
                             <h1 style={{fontSize:"4em", fontWeight:"100"}}>{loadingText}</h1>
                         </Grid>
                         <Grid item lg={12}>
+                        <LazyLoad once>
                         <img src={loadingImage}/>
+                        </LazyLoad>
                         </Grid>
                         <Grid item lg={12}>
                             <Button color="primary" variant="contained" onClick= {() => {clickAction()}}>{buttonText}</Button>
