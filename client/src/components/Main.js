@@ -38,7 +38,7 @@ class Main extends Component {
                                     label="Username"
                                     helperText="enter your username"
                                     margin="normal"
-                                    fullWidth="true"
+                                    fullWidth={true}
                                 />
                             </Col>
                             <Col lg={12}>
@@ -47,7 +47,7 @@ class Main extends Component {
                                     type="password"
                                     helperText="enter your password"
                                     margin="normal"
-                                    fullWidth="true"
+                                    fullWidth={true}
                                 />
                             </Col>
                             <Col style={styles.buttons} lg={6}>
