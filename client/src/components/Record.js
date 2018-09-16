@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import CardContent from '@material-ui/core/CardContent';
 import axios from 'axios';
+import LazyLoad from 'react-lazyload';
 
 const styles = {
     section: {
@@ -25,10 +26,15 @@ class Record extends Component {
     constructor(){
         super()
         this.recognition;
+        this.final;
+        this.startRecording = this.startRecording.bind(this);
+        this.stopRecording = this.stopRecording.bind(this);
     }
 
     state = {
-        recording : true
+        recording : false,
+        startTime: null,
+        endTime: null
     }
 
     componentDidMount() {
@@ -41,30 +47,52 @@ class Record extends Component {
         var speechRecognitionList = new window.webkitSpeechGrammarList();
         speechRecognitionList.addFromString(grammar, 1);
         this.recognition.grammars = speechRecognitionList;
-        this.recognition.start();
-        this.final;
         this.recognition.onend = (e) => {
-             axios.post('/speech/test',this.final);
+            console.log(this.final)
+             axios.post('/speech',{
+                "collection": "test",
+                "startTime": this.state.startTime,
+                "endTime": this.state.endTime,
+                "text" : this.final
+             }, res => {
+                res?window.location.replace("/dashboard/review"):window.location.replace("/dashboard")
+             });
         }
         this.recognition.onresult = (event) => {
             this.final = event.results;
         };
     }
-
+    startRecording(){
+        this.recognition.start();
+        this.setState({
+            startTime: new Date().getTime(),
+            recording: true
+        })
+    }
     stopRecording(){
         this.recognition.stop()
         this.setState({
-            recording : this.state.recording ? this.state.recording : false
+            recording : false,
+            endTime: new Date().getTime()
         });
     }
 
     render() {
         let buttonText;
+        let clickAction;
+        let loadingImage = null;
+        let loadingText = ''
         if(this.state.recording){
             buttonText = "Stop Recording";
+            clickAction = this.stopRecording;
+            loadingImage = "https://i.imgur.com/8fLfdjJ.gif";
+            loadingText = 'Recording...'
         }
         else {
             buttonText = "Start Recording";
+            clickAction = this.startRecording;
+            loadingImage = "";
+            loadingText = '';
         }
         return (
             <React.Fragment>
@@ -72,13 +100,15 @@ class Record extends Component {
                 <section style={styles.section}>
                     <Grid container spacing={8} justify="center" alignItems="center" style={{textAlign:"center"}}>
                         <Grid item lg={12}>
-                            <h1 style={{fontSize:"4em", fontWeight:"100"}}>Recording...</h1>
+                            <h1 style={{fontSize:"4em", fontWeight:"100"}}>{loadingText}</h1>
                         </Grid>
                         <Grid item lg={12}>
-                            <img src="https://i.imgur.com/8fLfdjJ.gif"/>
+                        <LazyLoad once>
+                        <img src={loadingImage}/>
+                        </LazyLoad>
                         </Grid>
                         <Grid item lg={12}>
-                            <Button color="primary" variant="contained" onClick= {() => {this.stopRecording()}}>{buttonText}</Button>
+                            <Button color="primary" variant="contained" onClick= {() => {clickAction()}}>{buttonText}</Button>
                         </Grid>
                     </Grid>
                 </section>
