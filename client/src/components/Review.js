@@ -10,6 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import axios from 'axios';
 import classNames from 'classnames';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
 const styles = {
     section: {
@@ -111,21 +113,12 @@ class Review extends Component {
                                                 </ExpansionPanelSummary>
                                                 <ExpansionPanelDetails>
                                                     <Grid container justify="center" alignItems="center">
-                                                        <Grid item lg={8}>
-                                                            <Typography>
-                                                                {data.text}
-                                                            </Typography>
-                                                        </Grid>
-                                                        <Grid item lg={4}>
-                                                            <Grid lg={12} item>
-                                                                <span style={{fontWeight:"600"}}>Most used word:</span> depression
-                                                            </Grid>
-                                                            <Grid lg={12} item>
-                                                                <span style={{fontWeight:"600"}}>Total length of speech:</span> 86 s
-                                                            </Grid>
-                                                            <Grid lg={12} item style={{textAlign:"center"}}>
-                                                                <h1>70%</h1>
-                                                            </Grid>
+                                                        <Grid item lg={12}>
+                                                            <Link to={"/dashboard/review/"+data._id} style={{textDecoration:"none"}}>
+                                                                <Button color="primary" variant="contained">
+                                                                    View Log
+                                                                </Button>
+                                                            </Link>
                                                         </Grid>
                                                     </Grid>
                                                 </ExpansionPanelDetails>
