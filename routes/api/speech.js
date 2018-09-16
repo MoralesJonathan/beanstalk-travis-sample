@@ -9,11 +9,12 @@ router.get('/test',(req, res) => {
   res.json('the user endpoint works')
 })
 
-router.get('/:collection/list', function (req, res) {
+router.get('/list/:collection', function (req, res) {
   mongoClient.connect(mongoDbUrl, function (error, db) {
     if (!error) {
       console.log("Connected successfully to MongoDB server");
-      db.collection(req.params.collection).find({}).toArray(function(data){
+      db.collection(req.params.collection).find({}).toArray(function(err,data){
+        console.log(data)
         res.send(data)
       })
     } else {
