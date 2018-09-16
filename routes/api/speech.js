@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const cognitiveService = require('../../middleware/cognitiveService');
 const fillers = ['so', 'and', 'like', 'actually', 'you know', 'totally', 'i mean', 'just', 'literaly', 'so basically', 'anyway'];
 const mongoClient = require('mongodb').MongoClient;
 const mongoDbUrl = `mongodb://root:password1@ds123790.mlab.com:23790/shellhacks`;
@@ -17,6 +18,7 @@ router.get('/stats/:collection/:timestamp', function (req, res) {
         }, function (err, speech) {
           if (err) res.send(false)
           speechString = speech.text.length > 1 ? speech.text.join(" ") : speech.text[0];
+          console.log(cognitiveService(speechString));
           let countMostUsedWord = new Promise(function (resolve, reject) {
             try {
               arr = speechString.split(" ")
