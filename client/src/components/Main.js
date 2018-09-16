@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Grid, Container, Col, Row} from 'react-bootstrap';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import classNames from 'classnames';
 
 const styles = {
     buttons : {
@@ -18,7 +19,7 @@ const styles = {
     },
     section: {
         backgroundColor: "#34ADFF",
-        backgroundImage: "-webkit-linear-gradient(100deg, #FFFFFF 50%, #FBC02D 35%)",
+        backgroundImage: "-webkit-linear-gradient(100deg, #FFFFFF 50%, #F9C02D 35%)",
         height:"100vh"
     }
 }
@@ -26,9 +27,9 @@ class Main extends Component {
     render() {
         return (
             <section style={styles.section}>
-                <div style={styles.loginPrompt} >
+                <div style={styles.loginPrompt}>
                     <Grid>
-                        <Row>
+                        <Row className={classNames("animated", "fadeInUp")}>
                             <Col lg={12}>
                                 <h1 style={{fontStyle:"italic"}}>failedIdea</h1>
                             </Col>

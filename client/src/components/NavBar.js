@@ -7,21 +7,22 @@ import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Button from '@material-ui/core/Button';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-
+/*
+<Tabs style={{marginLeft:"auto"}}>
+    <Tab style={{flexGrow:1}} label="Read"/>
+    <Tab style={{flexGrow:1}} label="Orate"/>
+    <Tab style={{flexGrow:1}} label="Topic"/>
+</Tabs>
+*/
 class NavBar extends Component {
     render() {
         return (
             <AppBar>
-                <Toolbar variant="dense">
+                <Toolbar>
                     <Typography>
                         logofiller
                     </Typography>
-                        <Tabs style={{marginLeft:"auto"}}>
-                            <Tab style={{flexGrow:1}} label="Read"/>
-                            <Tab style={{flexGrow:1}} label="Orate"/>
-                            <Tab style={{flexGrow:1}} label="Topic"/>
-                        </Tabs>
-                    <IconButton>
+                    <IconButton style={{marginLeft:"auto"}}>
                         <AccountCircle/>
                     </IconButton>
                 </Toolbar>
