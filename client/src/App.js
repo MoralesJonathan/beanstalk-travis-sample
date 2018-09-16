@@ -38,7 +38,7 @@ class App extends Component {
                         <Route exact path="/" component={Main}/>
                         <Route exact path="/signup" component={SignUp}/>
                         <Route exact path="/dashboard" component={Dashboard}/>
-                        <Route exact path="/dashboard/review/:id" component={LogPage}/>
+                        <Route exact path="/dashboard/review/:timestamp" component={LogPage}/>
                         <Route exact path="/dashboard/review" component={Review}/>
                         <Route exact path="/dashboard/record" component={Record}/>
                     </Switch>

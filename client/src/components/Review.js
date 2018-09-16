@@ -86,7 +86,7 @@ class Review extends Component {
     };
 
     componentDidMount(){
-        axios.get('https://api.myjson.com/bins/dh07k')
+        axios.get('/api/speech/list/test')
         .then(res => {
             this.setState({data : res.data});
         });
@@ -108,13 +108,13 @@ class Review extends Component {
                                         return (
                                             <ExpansionPanel expanded={expanded === 'panel'+i} onChange={this.handleChange('panel'+i)}>
                                                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-                                                    <Typography variant="title" style={{flexBasis: '20%'}}>{data.date}</Typography>
-                                                    <Typography>{data.time}</Typography>
+                                                    <Typography variant="title" style={{flexBasis: '20%'}}>{new Date(data.startTimestamp).toDateString()}</Typography>
+                                                    <Typography>{new Date(data.startTimestamp).toLocaleTimeString()}</Typography>
                                                 </ExpansionPanelSummary>
                                                 <ExpansionPanelDetails>
                                                     <Grid container justify="center" alignItems="center">
                                                         <Grid item lg={12}>
-                                                            <Link to={"/dashboard/review/"+data._id} style={{textDecoration:"none"}}>
+                                                            <Link to={"/dashboard/review/"+data.startTimestamp} style={{textDecoration:"none"}}>
                                                                 <Button color="primary" variant="contained">
                                                                     View Log
                                                                 </Button>

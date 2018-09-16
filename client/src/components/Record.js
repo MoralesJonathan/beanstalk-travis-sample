@@ -48,12 +48,18 @@ class Record extends Component {
         speechRecognitionList.addFromString(grammar, 1);
         this.recognition.grammars = speechRecognitionList;
         this.recognition.onend = (e) => {
-            console.log(this.final)
-             axios.post('/speech',{
+            this.finalArr = [];
+            for(var i = 0; i < this.final.length; i++){
+                for(var j = 0; j < this.final[i].length; j++){
+                    console.log(this.final[i][j].transcript);
+                    this.finalArr.push(this.final[i][j].transcript);
+                }
+            }
+             axios.post('/api/speech',{
                 "collection": "test",
                 "startTime": this.state.startTime,
                 "endTime": this.state.endTime,
-                "text" : this.final
+                "text" : this.finalArr
              }, res => {
                 res?window.location.replace("/dashboard/review"):window.location.replace("/dashboard")
              });
