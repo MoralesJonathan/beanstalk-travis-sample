@@ -4,8 +4,9 @@ import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 import { Switch, Route } from 'react-router';
 import Main from './components/Main';
-import Read from './components/Read';
+import Dashboard from './components/Dashboard';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import Review from './components/Review';
 
 const theme = createMuiTheme({
   palette: {
@@ -32,7 +33,8 @@ class App extends Component {
                 <React.Fragment>
                     <Switch>
                         <Route exact path="/" component={Main}/>
-                        <Route exact path="/read" component={Read}/>
+                        <Route exact path="/dashboard" component={Dashboard}/>
+                        <Route exact path="/dashboard/review" component={Review}/>
                     </Switch>
                 </React.Fragment>
             </BrowserRouter>
