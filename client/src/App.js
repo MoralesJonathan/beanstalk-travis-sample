@@ -8,6 +8,7 @@ import Dashboard from './components/Dashboard';
 import Record from './components/Record';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Review from './components/Review';
+import SignUp from './components/SignUp';
 
 const theme = createMuiTheme({
   palette: {
@@ -34,6 +35,7 @@ class App extends Component {
                 <React.Fragment>
                     <Switch>
                         <Route exact path="/" component={Main}/>
+                        <Route exact path="/signup" component={SignUp}/>
                         <Route exact path="/dashboard" component={Dashboard}/>
                         <Route exact path="/dashboard/review" component={Review}/>
                         <Route exact path="/dashboard/record" component={Record}/>

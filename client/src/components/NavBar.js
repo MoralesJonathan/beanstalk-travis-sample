@@ -7,6 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Button from '@material-ui/core/Button';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import { Link } from 'react-router-dom';
 /*
 <Tabs style={{marginLeft:"auto"}}>
     <Tab style={{flexGrow:1}} label="Read"/>
@@ -22,6 +23,11 @@ class NavBar extends Component {
                     <Typography>
                         <span style={{fontSize:"3em"}} role="img" aria-label="speech">🗣</span>
                     </Typography>
+                    <Tabs style={{marginLeft:"auto"}}>
+                        <Link style={{textDecoration:"none", color:"black"}} to="/dashboard">
+                        <Tab label="Home"/>
+                        </Link>
+                    </Tabs>
                     <IconButton style={{marginLeft:"auto"}}>
                         <AccountCircle/>
                     </IconButton>

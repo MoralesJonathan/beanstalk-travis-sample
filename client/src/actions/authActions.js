@@ -26,10 +26,7 @@ export const loginUser = userData => {
       setAuthToken(token);
       // Decode token to get user data
       const decoded = jwt_decode(token);
-      const promise = new Promise((resolve, reject) => {
-          resolve(true);
-      })
-      return promise;
+      return true;
     })
     .catch(err => console.log(err));
 };

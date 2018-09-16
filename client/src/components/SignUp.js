@@ -8,7 +8,6 @@ import { Redirect } from 'react-router';
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
-import { Link } from 'react-router-dom';
 
 const styles = {
     buttons : {
@@ -29,7 +28,7 @@ const styles = {
         height:"100vh"
     }
 }
-class Main extends Component {
+class SignUp extends Component {
     constructor(){
         super();
         this.state = {
@@ -50,21 +49,10 @@ class Main extends Component {
         password: this.state.password
       };
 
-      axios
-        .post('http://localhost:5001/api/users/login', userData)
-        .then(res => {
-            console.log(res);
-          // Save to localStorage
-          const { token } = res.data;
-          // Set token to ls
-          localStorage.setItem('jwtToken', token);
-          // Set token to Auth header
-          setAuthToken(token);
-          // Decode token to get user data
-          const decoded = jwt_decode(token);
-          this.setState({redirect: true})
-        })
-        .catch(err => console.log(err));
+        axios
+          .post('http://localhost:5001/api/users/register', userData)
+          .then(res => true)
+          .catch(err => console.log(err));
 
     }
 
@@ -109,16 +97,9 @@ class Main extends Component {
                                 />
                             </Col>
                             <Col style={styles.buttons} lg={6}>
-                                <Button type="submit" fullWidth={true} variant="outlined">
-                                    login
-                                </Button>
-                            </Col>
-                            <Col style={styles.buttons} lg={6}>
-                                <Link to={"/signup"} style={{textDecoration:"none"}}>
-                                <Button color="primary" fullWidth={true} variant="contained">
+                                <Button type="submit" color="primary" fullWidth={true} variant="contained">
                                     sign-up
                                 </Button>
-                                </Link>
                             </Col>
                             </form>
                         </Row>
@@ -129,4 +110,4 @@ class Main extends Component {
     }
 }
 
-export default Main;
+export default SignUp;
