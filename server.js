@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const mongoSanitize = require('express-mongo-sanitize');
 const { posts, profile, users, speech } = require('./routes/api');
-require('dotenv').load();
 
 
 // Base requirements
@@ -18,7 +17,7 @@ app.use(mongoSanitize({ replaceWith: '_' }));
 
 // DB Config
 const db = `mongodb://${process.env.MONGOUSERNAME}:${process.env.MONGOPASSWORD}@ds123790.mlab.com:23790/shellhacks`;
-console.log(db);
+console.log("serverjs db " + db);
 app.use(express.static('public'))
 
 // Connect to MongoDB
