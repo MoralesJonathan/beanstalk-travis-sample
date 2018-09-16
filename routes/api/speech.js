@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
+require('dotenv').load();
 const cognitiveService = require('../../middleware/cognitiveService');
 const fillers = ['so', 'and', 'like', 'actually', 'you know', 'totally', 'i mean', 'just', 'literaly', 'so basically', 'anyway'];
 const mongoClient = require('mongodb').MongoClient;
 const mongoDbUrl = `mongodb://${process.env.MONGOUSERNAME}:${process.env.MONGOPASSWORD}@ds123790.mlab.com:23790/shellhacks`;
-
 router.get('/test',(req, res) => {
   res.json('the user endpoint works')
 })
