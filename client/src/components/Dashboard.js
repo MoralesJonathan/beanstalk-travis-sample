@@ -33,7 +33,7 @@ class Dashboard extends Component {
                 <NavBar/>
                 <section style={styles.section}>
                     <Grid container spacing={8}>
-                        <Grid item lg={6}>
+                        <Grid item xs={12} sm={6} md={6} lg={6}>
                             <Card style={styles.card}>
                                 <Link to="/" style={{textDecoration:"none"}}>
                                     <CardActionArea style={{width:"100%", height:"400px"}}>
@@ -47,7 +47,7 @@ class Dashboard extends Component {
                                 </Link>
                             </Card>
                         </Grid>
-                        <Grid item lg={6}>
+                        <Grid item xs={12} sm={6} md={6} lg={6}>
                             <Card style={styles.card}>
                                 <Link to="/dashboard/review" style={{textDecoration:"none"}}>
                                     <CardActionArea style={{width:"100%", height:"400px"}}>
