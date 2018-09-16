@@ -35,7 +35,7 @@ class Dashboard extends Component {
                     <Grid container spacing={8}>
                         <Grid item xs={12} sm={6} md={6} lg={6}>
                             <Card style={styles.card}>
-                                <Link to="/" style={{textDecoration:"none"}}>
+                                <Link to="/Record" style={{textDecoration:"none"}}>
                                     <CardActionArea style={{width:"100%", height:"400px"}}>
                                         <CardContent>
                                             <Typography style={{textAlign:"center"}}>

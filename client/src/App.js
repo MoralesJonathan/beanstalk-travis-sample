@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Switch, Route } from 'react-router';
 import Main from './components/Main';
 import Dashboard from './components/Dashboard';
+import Record from './components/Record';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Review from './components/Review';
 
@@ -35,6 +36,7 @@ class App extends Component {
                         <Route exact path="/" component={Main}/>
                         <Route exact path="/dashboard" component={Dashboard}/>
                         <Route exact path="/dashboard/review" component={Review}/>
+                        <Route exact path="/dashboard/record" component={Record}/>
                     </Switch>
                 </React.Fragment>
             </BrowserRouter>
