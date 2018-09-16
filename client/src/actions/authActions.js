@@ -7,15 +7,17 @@ import { GET_ERRORS, SET_CURRENT_USER } from './types';
 // Register User
 export const registerUser = (userData, history) => {
   axios
-    .post('/api/users/register', userData)
-    .then(res => true);
+    .post('http://localhost:5001/api/users/register', userData)
+    .then(res => true)
+    .catch(err => console.log(err));
 };
 
 // Login - Get User Token
 export const loginUser = userData => {
   axios
-    .post('/api/users/login', userData)
+    .post('http://localhost:5001/api/users/login', userData)
     .then(res => {
+        console.log(res);
       // Save to localStorage
       const { token } = res.data;
       // Set token to ls
@@ -24,6 +26,10 @@ export const loginUser = userData => {
       setAuthToken(token);
       // Decode token to get user data
       const decoded = jwt_decode(token);
+      const promise = new Promise((resolve, reject) => {
+          resolve(true);
+      })
+      return promise;
     })
     .catch(err => console.log(err));
 };

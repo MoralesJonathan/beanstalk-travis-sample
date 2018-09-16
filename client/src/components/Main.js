@@ -45,12 +45,16 @@ class Main extends Component {
         email: this.state.email,
         password: this.state.password
       };
-
-     this.setState({redirect:loginUser(userData)});
+      
+      loginUser(userData)
+      .then((data)=>{
+          this.setState({
+              redirect: data
+          })
+      });
     }
 
     onChange(e) {
-        console.log(e.target.name);
       this.setState({ [e.target.name]: e.target.value });
     }
 
