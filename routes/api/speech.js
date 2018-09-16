@@ -3,13 +3,27 @@ const router = express.Router();
 const cognitiveService = require('../../middleware/cognitiveService');
 const fillers = ['so', 'and', 'like', 'actually', 'you know', 'totally', 'i mean', 'just', 'literaly', 'so basically', 'anyway'];
 const mongoClient = require('mongodb').MongoClient;
-const mongoDbUrl = `mongodb://root:password1@ds123790.mlab.com:23790/shellhacks`;
+const mongoDbUrl = `mongodb://${process.env.MONGOUSERNAME}:${process.env.MONGOPASSWORD}@ds123790.mlab.com:23790/shellhacks`;
 
 router.get('/test',(req, res) => {
   res.json('the user endpoint works')
 })
 
-router.get('/frank/:collection/:timestamp', function (req, res) {
+router.get('/:collection/list', function (req, res) {
+  mongoClient.connect(mongoDbUrl, function (error, db) {
+    if (!error) {
+      console.log("Connected successfully to MongoDB server");
+      db.collection(req.params.collection).find({}).toArray(function(data){
+        res.send(data)
+      })
+    } else {
+      console.log(error)
+      res.send(false)
+    }
+  })
+})
+
+router.get('/:collection/:timestamp', function (req, res) {
     mongoClient.connect(mongoDbUrl, function (error, db) {
       if (!error) {
         console.log("Connected successfully to MongoDB server");
@@ -83,5 +97,28 @@ router.get('/frank/:collection/:timestamp', function (req, res) {
     })
 
   });
+
+router.post('/', function (req, res) {
+  mongoClient.connect(mongoDbUrl, function (error, db) {
+    if (!error) {
+      console.log("Connected successfully to MongoDB server");
+      db.collection(req.body.collection).insertOne({
+        "startTimestamp" : req.body.startTime,
+        "endTimestamp": req.body.endTime,
+        "text":req.body.text
+      }, function(err,success){
+        if(!err){
+          res.send(200);
+        } else {
+          console.log(err)
+          res.send(err)
+        }
+      })
+    } else {
+      console.dir(error);
+      res.send(error);
+    }
+  })
+})
 
 module.exports = router;
