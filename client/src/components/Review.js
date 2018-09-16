@@ -9,6 +9,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import axios from 'axios';
+import classNames from 'classnames';
 
 const styles = {
     section: {
@@ -98,7 +99,8 @@ class Review extends Component {
                 <section style={styles.section}>
                     <Grid container spacing={8} justify="center" alignItems="center">
                         <Grid item lg={12} style={{marginTop:"15vh"}}>
-                            <div style={{marginLeft:"20vh", marginRight:"20vh"}}>
+                            <div className={classNames("animated", "slideInUp")} style={{marginLeft:"20vh", marginRight:"20vh"}}>
+                            <h1 style={{fontWeight:"100", fontSize:"2em"}}>Captured Speeches</h1>
                                 {
                                     this.state.data.map((data, i) => {
                                         return (
@@ -115,7 +117,15 @@ class Review extends Component {
                                                             </Typography>
                                                         </Grid>
                                                         <Grid item lg={4}>
-                                                            <h1>40%</h1>
+                                                            <Grid lg={12} item>
+                                                                <span style={{fontWeight:"600"}}>Most used word:</span> depression
+                                                            </Grid>
+                                                            <Grid lg={12} item>
+                                                                <span style={{fontWeight:"600"}}>Total length of speech:</span> 86 s
+                                                            </Grid>
+                                                            <Grid lg={12} item style={{textAlign:"center"}}>
+                                                                <h1>70%</h1>
+                                                            </Grid>
                                                         </Grid>
                                                     </Grid>
                                                 </ExpansionPanelDetails>
