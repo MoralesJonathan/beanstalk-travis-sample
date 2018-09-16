@@ -4,6 +4,7 @@ module.exports = (speech) =>{
   var options = {
     url: 'https://eastus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases',
     headers: {
+      "Content-Type": "application/json",
       'Ocp-Apim-Subscription-Key' : process.env.MSFT_API_KEY
     }
   }

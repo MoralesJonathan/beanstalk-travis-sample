@@ -33,7 +33,7 @@ router.get('/:collection/:timestamp', function (req, res) {
         }, function (err, speech) {
           if (err) res.send(false)
           speechString = speech.text.length > 1 ? speech.text.join(" ") : speech.text[0];
-          console.log(cognitiveService(speechString));
+          // console.log(cognitiveService(speechString));
           let countMostUsedWord = new Promise(function (resolve, reject) {
             try {
               arr = speechString.split(" ")
