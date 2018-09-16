@@ -31,23 +31,23 @@ class Main extends Component {
                     <Grid>
                         <Row className={classNames("animated", "fadeInUp")}>
                             <Col lg={12}>
-                                <h1 style={{fontStyle:"italic"}}>failedIdea</h1>
+                                <h1 style={{fontStyle:"italic"}}>Configure of Speech</h1>
                             </Col>
                             <Col lg={12}>
                                 <TextField
                                     label="Username"
-                                    id="margin-normal"
                                     helperText="enter your username"
                                     margin="normal"
+                                    fullWidth="true"
                                 />
                             </Col>
                             <Col lg={12}>
                                 <TextField
                                     label="Password"
                                     type="password"
-                                    id="margin-normal"
                                     helperText="enter your password"
                                     margin="normal"
+                                    fullWidth="true"
                                 />
                             </Col>
                             <Col style={styles.buttons} lg={6}>
