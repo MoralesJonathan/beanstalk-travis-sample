@@ -20,7 +20,7 @@ class NavBar extends Component {
             <AppBar>
                 <Toolbar>
                     <Typography>
-                        logofiller
+                        <span style={{fontSize:"3em"}} role="img" aria-label="speech">🗣</span>
                     </Typography>
                     <IconButton style={{marginLeft:"auto"}}>
                         <AccountCircle/>
