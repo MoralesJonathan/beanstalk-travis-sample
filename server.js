@@ -2,10 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const mongoSanitize = require('express-mongo-sanitize');
-const { posts, profile, users, speech } = require('./routes/api');
+const routes = require('./routes');
 
 const app = express();
 const PORT = process.env.port || 5001;
+
 
 // MiddleWares
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,12 +29,7 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use('/api/users', users);
-const authCheck = require('./middleware/authCheck');
-app.use('/api', authCheck);
-app.use('/api/profile', profile);
-app.use('/api/posts', posts);
-app.use('/api/speech', speech);
+app.use(routes);
 
 // Listen on port
 app.listen(PORT, () => {
