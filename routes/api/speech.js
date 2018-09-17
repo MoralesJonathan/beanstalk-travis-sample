@@ -27,7 +27,7 @@ router.get('/list/:collection', (req, res) => {
   mongoClient.connect(mongoDbUrl, (error, db) => {
     if (!error) {
       console.log("Connected successfully to MongoDB server");
-      db.collection(req.params.collection).find({}).toArray((err, data ) => {
+      db.collection(req.params.collection).find({}).toArray((err, data) => {
         !err ? res.status(200).send(data) : (
           console.error(error),
           res.status(500).send(err)
@@ -40,6 +40,33 @@ router.get('/list/:collection', (req, res) => {
   })
 })
 
+// @route POST api/title
+// @desc Updates title of speech
+// @acess Public
+// @returns a 200 if title was added
+// @returns a 500 for db error
+router.post('/title', (req, res) => {
+  mongoClient.connect(mongoDbUrl, (error, db) => {
+    if (!error) {
+      console.log("Connected successfully to MongoDB server");
+      db.collection(req.body.collection).update({
+        'startTimestamp': parseInt(req.body.timestamp)
+      }, { '$set': { "title": req.body.title } }).toArray((err, result) => {
+        if (!err) {
+          res.send(200)
+        }
+        else {
+          console.error(error)
+          res.status(500).send(err)
+        }
+      })
+    } else {
+      console.error(error)
+      res.status(500).send(false)
+    }
+  })
+});
+
 // @route GET api/speech/:collection/:timestamp
 // @desc Processes speech string and returns information on speech
 // @acess Public
@@ -51,18 +78,18 @@ router.get('/:collection/:timestamp', (req, res) => {
       console.log("Connected successfully to MongoDB server");
       db.collection(req.params.collection).findOne({
         'startTimestamp': parseInt(req.params.timestamp)
-      }, (err, speech ) => {
+      }, (err, speech) => {
         if (err) {
           res.status(500).send(false)
           console.error(err)
         } else {
           speechString = speech.text.length > 1 ? speech.text.join(" ") : speech.text[0];
-          let sentimental = new Promise((resolve, reject) =>  {
-            cognitiveService(speechString, data  => {
+          let sentimental = new Promise((resolve, reject) => {
+            cognitiveService(speechString, data => {
               resolve(data);
             })
           })
-          let countMostUsedWord = new Promise((resolve, reject) =>  {
+          let countMostUsedWord = new Promise((resolve, reject) => {
             try {
               arr = speechString.split(" ")
               var obj = {}, mostFreq = 0, which = [];
@@ -83,7 +110,7 @@ router.get('/:collection/:timestamp', (req, res) => {
                 }
               });
 
-              which =  which.length > 1? `${which.join(` + `)}`: which = `"${which}"`
+              which = which.length > 1 ? `${which.join(` + `)}` : which = `"${which}"`
 
               resolve(which)
             } catch (e) {
@@ -91,10 +118,10 @@ router.get('/:collection/:timestamp', (req, res) => {
             }
           });
 
-          let countFillers = new Promise((resolve, reject) =>  {
+          let countFillers = new Promise((resolve, reject) => {
             let fillerStats = [];
             try {
-              fillers.forEach(filler  => {
+              fillers.forEach(filler => {
                 fillerStats.push(speechString.match(new RegExp(filler, "gi")) || []).length;
               });
               resolve(fillerStats)
@@ -103,11 +130,11 @@ router.get('/:collection/:timestamp', (req, res) => {
             }
           });
 
-          let getDuration = new Promise((resolve, reject) =>  {
+          let getDuration = new Promise((resolve, reject) => {
             speech.startTimestamp && speech.endTimestamp ? resolve(Math.floor((speech.endTimestamp - speech.startTimestamp) / 1000)) : reject(null)
           });
 
-          Promise.all([countMostUsedWord, countFillers, getDuration, sentimental]).then(values  => {
+          Promise.all([countMostUsedWord, countFillers, getDuration, sentimental]).then(values => {
             res.status(200).json({
               mostUsedWord: values[0],
               fillersCount: values[1],
@@ -140,7 +167,7 @@ router.post('/', (req, res) => {
         "startTimestamp": req.body.startTime,
         "endTimestamp": req.body.endTime,
         "text": req.body.text
-      }, (err, success ) => {
+      }, (err, success) => {
         if (!err) {
           res.send(200);
         } else {
