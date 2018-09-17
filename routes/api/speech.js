@@ -122,7 +122,7 @@ router.get('/:collection/:timestamp', (req, res) => {
             let fillerStats = [];
             try {
               fillers.forEach(filler => {
-                fillerStats.push(speechString.match(new RegExp(filler, "gi")) || []).length;
+                fillerStats.push((speechString.match(new RegExp(filler, "gi")) || []).length);
               });
               resolve(fillerStats)
             } catch (e) {
