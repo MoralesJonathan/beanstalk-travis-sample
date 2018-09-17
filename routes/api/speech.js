@@ -92,14 +92,14 @@ router.get('/:collection/:timestamp', (req, res) => {
           });
 
           let countFillers = new Promise((resolve, reject) =>  {
-            let fillerStats = {};
+            let fillerStats = [];
             try {
               fillers.forEach(filler  => {
-                fillerStats[filler] = (speechString.match(new RegExp(filler, "gi")) || []).length;
+                fillerStats.push(speechString.match(new RegExp(filler, "gi")) || []).length;
               });
               resolve(fillerStats)
             } catch (e) {
-              reject({})
+              reject([])
             }
           });
 
