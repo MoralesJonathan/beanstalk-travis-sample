@@ -5,7 +5,7 @@ const router = express.Router();
 //@desc Tests the posts route
 //@acess Public
 router.get('/test',(req, res) => { 
-    res.json('the user endpoint works') 
+    res.send(200).json('the user endpoint works') 
 })
 
 module.exports = router;

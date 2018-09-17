@@ -4,12 +4,11 @@ const gravatar = require('gravatar');
 const jwt = require('jsonwebtoken');
 // Require the user
 const User = require('../../models/User');
-// Require the secret sauce
-
 
 // Load Input Validators for Registration
 const validateRegisterInput = require('../../helpers/validators/register');
 const validateLoginInput = require('../../helpers/validators/login');
+
 // @route GET api/users/test
 // @desc Tests the users route
 // @acess Public
@@ -27,7 +26,6 @@ router.get('/test', (req, res) => {
 // @returns 400 for invalid input on req.body
 
 router.post('/register', (req, res) => {
-    console.log(req.body);
     // Check validation on request body
     const { errors, isValid } = validateRegisterInput(req.body);
     if (!isValid) {
@@ -42,11 +40,10 @@ router.post('/register', (req, res) => {
                 return res.status(409).json(errors);
             } else {
                 const avatar = gravatar.url(email, {
-                    s: '200', //the size
+                    s: '200', //size
                     r: 'pg', //rating
                     d: 'mm' //default
                 });
-                //es6 short hand for name:name, email:email etc.
                 const newUser = new User({
                     name,
                     email,
@@ -56,7 +53,7 @@ router.post('/register', (req, res) => {
                 newUser.save()
                     .then(user => res.status(201).json(user))
                     .catch(err => {
-                        console.log(err)
+                        console.error(error)
                         errors.db = 'an error has occured in saving in the db'
                         res.status('500').json(errors)
                     });
@@ -74,13 +71,11 @@ router.post('/register', (req, res) => {
 
 router.post('/login', (req, res) => {
     // Check validation on request body
-    console.log(req.body); 
     const { errors, isValid } = validateLoginInput(req.body);
     if (!isValid) {
         return res.status(400).json(errors);
     }
     const { email, password } = req.body
-    //short hand for email:email
     User.findOne({ email })
         .then(user => {
             //check for user
@@ -108,7 +103,7 @@ router.post('/login', (req, res) => {
                     }
                 })
                 .catch(err => {
-                    console.log(err)
+                    console.error(error)
                     res.status('500').json({ login: 'an error has occured in the login process' })
                 });
 

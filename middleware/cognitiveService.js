@@ -1,8 +1,7 @@
 var request = require('request');
 require('dotenv').load();
 
-module.exports = (speech, callback) =>{
-  console.log(process.env.MSFT_API_KEY)
+module.exports = (speech, callback) => {
   const options = {
     url: 'https://eastus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment',
     headers: {
@@ -19,7 +18,7 @@ module.exports = (speech, callback) =>{
       ]
     })
   }
-  let score;
+  
   request.post(options, function(a, b, c) {
     callback(JSON.parse(c));
   });

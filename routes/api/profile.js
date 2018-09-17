@@ -5,8 +5,7 @@ const router = express.Router();
 //@desc Tests the profile route
 //@acess Public
 router.get('/test',(req, res) => { 
-    console.log(req);
-    res.json('the user endpoint works') 
+    res.status(200).json('the user endpoint works') 
 })
 
 module.exports = router;
