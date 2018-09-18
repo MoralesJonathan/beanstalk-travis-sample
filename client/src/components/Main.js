@@ -89,7 +89,7 @@ class Main extends Component {
                     <Grid>
                         <Row className={classNames("animated", "fadeInUp")}>
                             <Col lg={12}>
-                                <h1 style={{ fontStyle: "italic" }}>Configure of Speech</h1>
+                                <img style={{maxHeight: "100px"}} src="/logoCrop.png"/>
                             </Col>
                             <form onSubmit={this.onSubmit}>
                                 <Typography variant="caption" color="error" align="center">

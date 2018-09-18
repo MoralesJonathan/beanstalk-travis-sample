@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 class NavBar extends Component {
     state = {
-        avatar: "",
+        avatar: "http://gravatar.com/avatar/82d6e7f8cb5d70f3fd5820c7a6cd62cd?s=200&r=pg&d=mm",
     }
 
     componentDidMount(){
@@ -25,7 +25,7 @@ class NavBar extends Component {
             <AppBar>
                 <Toolbar>
                     <IconButton style={{width: "100px", borderRadius:"0"}} >
-                        <img style={ {height: "100%", position: "absolute", left:"0"}} src="/logoTransparent.png"/>
+                        <img style={ {height: "100%", position: "absolute"}} src="/logoTransparent.png"/>
                     </IconButton>
                     <Tabs style={{marginLeft:"auto"}}>
                         <Link style={{textDecoration:"none", color:"black"}} to="/dashboard">
