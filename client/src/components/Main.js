@@ -28,6 +28,9 @@ const styles = {
         backgroundColor: "#34ADFF",
         backgroundImage: "-webkit-linear-gradient(100deg, #FFFFFF 50%, #F9C02D 35%)",
         height: "100vh"
+    },
+    grid: {
+      minWidth: "20vw"
     }
 }
 class Main extends Component {
@@ -86,7 +89,7 @@ class Main extends Component {
         return (
             <section style={styles.section}>
                 <div style={styles.loginPrompt}>
-                    <Grid>
+                    <Grid style={styles.grid}>
                         <Row className={classNames("animated", "fadeInUp")}>
                             <Col lg={12}>
                                 <img style={{maxHeight: "100px"}} src="/logoCrop.png"/>
