@@ -1,35 +1,39 @@
 import React, { Component } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Tab from '@material-ui/core/Tab';
+import axios from 'axios';
 import Tabs from '@material-ui/core/Tabs';
-import Button from '@material-ui/core/Button';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import Avatar from '@material-ui/core/Avatar';
 import { Link } from 'react-router-dom';
-/*
-<Tabs style={{marginLeft:"auto"}}>
-    <Tab style={{flexGrow:1}} label="Read"/>
-    <Tab style={{flexGrow:1}} label="Orate"/>
-    <Tab style={{flexGrow:1}} label="Topic"/>
-</Tabs>
-*/
+
 class NavBar extends Component {
+    state = {
+        avatar: "",
+    }
+
+    componentDidMount(){
+        axios.get('/api/profile/avatar')
+        .then(res => {
+            this.setState({avatar : res.avatar});
+        });
+    }
+
     render() {
         return (
             <AppBar>
                 <Toolbar>
-                    <Typography>
-                        <span style={{fontSize:"3em"}} role="img" aria-label="speech">🗣</span>
-                    </Typography>
+                    <IconButton style={{width: "100px", borderRadius:"0"}} >
+                        <img style={ {height: "100%", position: "absolute", left:"0"}} src="/logoTransparent.png"/>
+                    </IconButton>
                     <Tabs style={{marginLeft:"auto"}}>
                         <Link style={{textDecoration:"none", color:"black"}} to="/dashboard">
-                        <Tab label="Home"/>
+                            <Tab label="Home"/>
                         </Link>
                     </Tabs>
                     <IconButton style={{marginLeft:"auto"}}>
-                        <AccountCircle/>
+                        <Avatar alt="User Avatar" src={this.state.avatar}/>
                     </IconButton>
                 </Toolbar>
             </AppBar>
