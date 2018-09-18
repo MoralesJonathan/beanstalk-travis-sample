@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import InputBase from '@material-ui/core/InputBase';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import axios from 'axios';
@@ -38,6 +39,10 @@ class Review extends Component {
       });
     };
 
+    changeTitle(title, timestamp) {
+        axios.post('/api/speech/title',{title:title,timestamp:timestamp,collection:'test'})
+    }
+
     componentDidMount(){
         axios.get('/api/speech/list/test')
         .then(res => {
@@ -61,7 +66,11 @@ class Review extends Component {
                                         return (
                                             <ExpansionPanel expanded={expanded === 'panel'+i} onChange={this.handleChange('panel'+i)}>
                                                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-                                                    <Typography variant="title" style={{flexBasis: '20%'}}>{new Date(data.startTimestamp).toDateString()}</Typography>
+                                                    <Typography variant="title" style={{flexBasis: '20%'}}>
+                                                            <InputBase  onChange={e=>this.changeTitle(e.target.value, data.startTimestamp)}  defaultValue={
+                                                                data.title?data.title:new Date(data.startTimestamp).toDateString()
+                                                            } />
+                                                    </Typography>
                                                     <Typography>{new Date(data.startTimestamp).toLocaleTimeString()}</Typography>
                                                 </ExpansionPanelSummary>
                                                 <ExpansionPanelDetails>
