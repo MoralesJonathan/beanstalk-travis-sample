@@ -36,7 +36,7 @@ module.exports = {
             console.log("Connected successfully to MongoDB server");
             db.collection(req.body.collection).update({
               'startTimestamp': parseInt(req.body.timestamp)
-            }, { '$set': { "title": req.body.title } }).toArray((err, result) => {
+            }, { '$set': { "title": req.body.title } },(err, result) => {
               if (!err) {
                 res.send(200)
               }
